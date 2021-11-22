@@ -16,77 +16,19 @@ import retrofit2.Response;
 
 public class MainRepository {
 
-    public MutableLiveData<Resource<Weather<Main>>> getTemp() {
-        MutableLiveData<Resource<Weather<Main>>> liveData = new MutableLiveData<>();
+    public MutableLiveData<Resource<Weather>> getTemp() {
+        MutableLiveData<Resource<Weather>> liveData = new MutableLiveData<>();
         liveData.setValue(Resource.loading());
-        App.api.getTemp("Bishkek", "795bd94349391252f8e3b1fa191cfbb8", "metric").enqueue(new Callback<Weather<Main>>() {
+        App.api.getTemp("Bishkek", "795bd94349391252f8e3b1fa191cfbb8", "metric").enqueue(new Callback<Weather>() {
             @Override
-            public void onResponse(Call<Weather<Main>> call, Response<Weather<Main>> response) {
+            public void onResponse(Call<Weather> call, Response<Weather> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     liveData.setValue(Resource.success(response.body()));
                 }
             }
 
             @Override
-            public void onFailure(Call<Weather<Main>> call, Throwable t) {
-                liveData.setValue(Resource.error(t.getLocalizedMessage(), null));
-            }
-        });
-        return liveData;
-    }
-
-    public MutableLiveData<Resource<Weather<Wind>>> getWind() {
-        MutableLiveData<Resource<Weather<Wind>>> liveData = new MutableLiveData<>();
-        liveData.setValue(Resource.loading());
-        App.api.getWind("Bishkek", "795bd94349391252f8e3b1fa191cfbb8", "metric").enqueue(new Callback<Weather<Wind>>() {
-            @Override
-            public void onResponse(Call<Weather<Wind>> call, Response<Weather<Wind>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    liveData.setValue(Resource.success(response.body()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Weather<Wind>> call, Throwable t) {
-                liveData.setValue(Resource.error(t.getLocalizedMessage(), null));
-
-            }
-        });
-        return liveData;
-
-    }
-
-    public MutableLiveData<Resource<Weather<Sys>>> getSys() {
-        MutableLiveData<Resource<Weather<Sys>>> liveData = new MutableLiveData<>();
-        liveData.setValue(Resource.loading());
-        App.api.getCountryInfo("Bishkek", "795bd94349391252f8e3b1fa191cfbb8", "metric").enqueue(new Callback<Weather<Sys>>() {
-            @Override
-            public void onResponse(Call<Weather<Sys>> call, Response<Weather<Sys>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    liveData.setValue(Resource.success(response.body()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Weather<Sys>> call, Throwable t) {
-                liveData.setValue(Resource.error(t.getLocalizedMessage(), null));
-            }
-        });
-        return liveData;
-    }
-    public MutableLiveData<Resource<Weather<Weather__1>>> getBossInfo() {
-        MutableLiveData<Resource<Weather<Weather__1>>> liveData = new MutableLiveData<>();
-        liveData.setValue(Resource.loading());
-        App.api.getBossInfo("Bishkek", "795bd94349391252f8e3b1fa191cfbb8", "metric").enqueue(new Callback<Weather<Weather__1>>() {
-            @Override
-            public void onResponse(Call<Weather<Weather__1>> call, Response<Weather<Weather__1>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    liveData.setValue(Resource.success(response.body()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Weather<Weather__1>> call, Throwable t) {
+            public void onFailure(Call<Weather> call, Throwable t) {
                 liveData.setValue(Resource.error(t.getLocalizedMessage(), null));
             }
         });

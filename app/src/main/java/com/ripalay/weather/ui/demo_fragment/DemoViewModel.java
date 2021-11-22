@@ -14,10 +14,7 @@ import com.ripalay.weather.data.repositories.MainRepository;
 public class DemoViewModel extends ViewModel {
 
     private MainRepository repository;
-    public LiveData<Resource<Weather<Main>>> tempLiveData;
-    public LiveData<Resource<Weather<Wind>>> windLiveData;
-    public LiveData<Resource<Weather<Sys>>> sysLiveData;
-    public LiveData<Resource<Weather<Weather__1>>> weatherLiveData;
+    public LiveData<Resource<Weather>> tempLiveData;
 
     public DemoViewModel() {
         this.repository = new MainRepository();
@@ -25,18 +22,6 @@ public class DemoViewModel extends ViewModel {
 
     public void fetchTemp() {
         tempLiveData = repository.getTemp();
-    }
-
-    public void fetchWind() {
-        windLiveData = repository.getWind();
-    }
-
-    public void fetchSys() {
-        sysLiveData = repository.getSys();
-    }
-
-    public void fethWeather() {
-        weatherLiveData = repository.getBossInfo();
     }
 
 }

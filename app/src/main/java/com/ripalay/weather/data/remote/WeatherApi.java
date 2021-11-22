@@ -12,13 +12,13 @@ import retrofit2.http.Query;
 
 public interface WeatherApi {
     @GET("weather?")
-    Call<Weather<Main>> getTemp(
+    Call<Weather> getTemp(
             @Query("q") String city,
             @Query("appid") String appId,
             @Query("units") String metric
     );
 
-    @GET("weather?")
+    /*@GET("weather?")
     Call<Weather<Wind>> getWind(
             @Query("q") String city,
             @Query("appid") String appId,
@@ -36,5 +36,5 @@ public interface WeatherApi {
             @Query("q") String city,
             @Query("appid") String appId,
             @Query("units") String metric
-    );
+    );*/
 }
