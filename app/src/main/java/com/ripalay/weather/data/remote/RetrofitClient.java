@@ -12,9 +12,9 @@ public class RetrofitClient {
 
     private OkHttpClient provideOkHttpClient() {
         return new OkHttpClient.Builder()
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
                 .addInterceptor(provideLogging())
                 .build();
     }

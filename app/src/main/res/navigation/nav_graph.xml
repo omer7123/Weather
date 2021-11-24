@@ -9,5 +9,30 @@
         android:id="@+id/demoFragment"
         android:name="com.ripalay.weather.ui.demo_fragment.DemoFragment"
         android:label="fragment_demo"
-        tools:layout="@layout/fragment_demo" />
+        tools:layout="@layout/fragment_demo">
+        <argument
+            android:defaultValue="Bishkek"
+            android:name="cityName"
+            app:argType="string"
+            app:nullable="true" />
+
+        <action
+            android:id="@+id/action_demoFragment_to_selectSityFragment"
+            app:destination="@id/selectSityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectSityFragment"
+        android:name="com.ripalay.weather.ui.select_sity_fragment.SelectSityFragment"
+        android:label="fragment_select_sity"
+        tools:layout="@layout/fragment_select_sity">
+        <action
+            android:id="@+id/action_selectSityFragment_to_demoFragment"
+            app:destination="@id/demoFragment">
+            <argument
+                android:name="cityName"
+                app:argType="string"
+                app:nullable="true" />
+
+        </action>
+    </fragment>
 </navigation>

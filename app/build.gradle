@@ -1,5 +1,8 @@
 plugins {
     id 'com.android.application'
+    id 'androidx.navigation.safeargs'
+    id 'dagger.hilt.android.plugin'
+
 }
 
 android {
@@ -55,5 +58,10 @@ dependencies {
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.2"))
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
+
+    //Hilt
+    implementation "com.google.dagger:hilt-android:2.36"
+    annotationProcessor "com.google.dagger:hilt-compiler:2.36"
+
 
 }

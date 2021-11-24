@@ -9,17 +9,31 @@ import com.ripalay.weather.data.models.Sys;
 import com.ripalay.weather.data.models.Weather;
 import com.ripalay.weather.data.models.Weather__1;
 import com.ripalay.weather.data.models.Wind;
+import com.ripalay.weather.data.remote.WeatherApi;
+
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainRepository {
+    private String city;
+    private WeatherApi api;
+
+    @Inject
+    public MainRepository(WeatherApi api) {
+        this.api = api;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     public MutableLiveData<Resource<Weather>> getTemp() {
         MutableLiveData<Resource<Weather>> liveData = new MutableLiveData<>();
         liveData.setValue(Resource.loading());
-        App.api.getTemp("Bishkek", "795bd94349391252f8e3b1fa191cfbb8", "metric").enqueue(new Callback<Weather>() {
+        api.getTemp(city, "795bd94349391252f8e3b1fa191cfbb8", "metric").enqueue(new Callback<Weather>() {
             @Override
             public void onResponse(Call<Weather> call, Response<Weather> response) {
                 if (response.isSuccessful() && response.body() != null) {

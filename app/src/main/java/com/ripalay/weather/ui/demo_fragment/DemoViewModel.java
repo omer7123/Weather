@@ -11,16 +11,29 @@ import com.ripalay.weather.data.models.Weather__1;
 import com.ripalay.weather.data.models.Wind;
 import com.ripalay.weather.data.repositories.MainRepository;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class DemoViewModel extends ViewModel {
+    private String city;
 
     private MainRepository repository;
     public LiveData<Resource<Weather>> tempLiveData;
 
-    public DemoViewModel() {
-        this.repository = new MainRepository();
+    public void setCity(String city) {
+        this.city = city;
     }
 
+    @Inject
+    public DemoViewModel(MainRepository repository) {
+        this.repository = repository;
+    }
+
+
     public void fetchTemp() {
+        repository.setCity(city);
         tempLiveData = repository.getTemp();
     }
 

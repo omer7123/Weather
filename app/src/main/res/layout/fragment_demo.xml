@@ -19,8 +19,8 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="240dp"
-        app:cardCornerRadius="20dp"
+        android:layout_marginTop="310dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -35,8 +35,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="18dp"
                 android:fontFamily="serif"
-                android:format12Hour="EEEE, dd MMMM yyyy | HH:mm"
-
+                android:format24Hour="EEEE, dd MMMM yyyy | HH:mm"
                 android:textColor="@color/gray"
                 android:textSize="14sp"
                 android:textStyle="normal"
@@ -119,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="90dp"
+                    android:layout_marginStart="80dp"
                     android:orientation="vertical">
 
 
