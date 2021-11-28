@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.ripalay.weather.App;
 import com.ripalay.weather.common.Resource;
+import com.ripalay.weather.data.local.WeatherDao;
 import com.ripalay.weather.data.models.Main;
 import com.ripalay.weather.data.models.Sys;
 import com.ripalay.weather.data.models.Weather;
@@ -20,10 +21,12 @@ import retrofit2.Response;
 public class MainRepository {
     private String city;
     private WeatherApi api;
+    private WeatherDao dao;
 
     @Inject
-    public MainRepository(WeatherApi api) {
+    public MainRepository(WeatherApi api, WeatherDao dao) {
         this.api = api;
+        this.dao = dao;
     }
 
     public void setCity(String city) {
@@ -38,6 +41,7 @@ public class MainRepository {
             public void onResponse(Call<Weather> call, Response<Weather> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     liveData.setValue(Resource.success(response.body()));
+                    dao.insert(response.body());
                 }
             }
 

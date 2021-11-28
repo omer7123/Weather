@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.ripalay.weather.R;
 import com.ripalay.weather.base.BaseFragment;
 import com.ripalay.weather.common.Resource;
+import com.ripalay.weather.data.local.WeatherDao;
 import com.ripalay.weather.data.models.Main;
 import com.ripalay.weather.data.models.Sys;
 import com.ripalay.weather.data.models.Weather;
@@ -27,6 +28,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import dagger.hilt.android.HiltAndroidApp;
@@ -41,6 +44,8 @@ public class DemoFragment extends BaseFragment<FragmentDemoBinding> {
     private Weather weather;
     private Sys sys;
     private ArrayList<Weather__1> weather__1 = new ArrayList<>();
+    @Inject
+    WeatherDao dao;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,7 +74,6 @@ public class DemoFragment extends BaseFragment<FragmentDemoBinding> {
         viewModel.setCity(args.getCityName());
         viewModel.fetchTemp();
 
-
     }
 
     @Override
@@ -84,35 +88,20 @@ public class DemoFragment extends BaseFragment<FragmentDemoBinding> {
                         main = response.data.getMain();
                         weather = response.data;
                         wind = response.data.getWind();
-                        weather__1 = (ArrayList<Weather__1>) response.data.getWeather();
-                        binding.weatherNow.setText(weather__1.get(0).getMain());
-                        Glide.with(requireContext())
-                                .load("https://openweathermap.org/img/wn/" + weather__1.get(0).getIcon() + ".png")
-                                .into(binding.iconWeath);
-
-                        binding.windTv.setText((int) Math.round(wind.getSpeed()) + " m/ s");
-                        binding.cityTv.setText(weather.getName());
-                        binding.tempnowTv.setText(String.valueOf((int) Math.round(main.getTemp())));
-                        binding.tempminTv.setText(String.valueOf((int) Math.round(main.getTempMin())));
-                        binding.tempmaxTv.setText(String.valueOf((int) Math.round(main.getTempMax())));
-                        binding.hummTv.setText(main.getHumidity() + "%");
-                        binding.pressTv.setText(main.getPressure() + "mBar");
-                        binding.progress.setVisibility(View.GONE);
-
-
                         sys = response.data.getSys();
-
-
-                        SimpleDateFormat df = new SimpleDateFormat("HH:mm");
-
-
-                        binding.sunriseTv.setText(df.format(sys.getSunrise()));
-                        binding.sunsetTv.setText(df.format(sys.getSunset()));
+                        weather__1 = (ArrayList<Weather__1>) response.data.getWeather();
+                        setResInUi();
 
                         break;
                     }
                     case ERROR: {
-                        Toast.makeText(requireContext(), "В название города допущена ошибка", Toast.LENGTH_LONG).show();
+                        Toast.makeText(requireContext(), "Ошибка с доступом в интернет. Загружена последняя информация", Toast.LENGTH_LONG).show();
+                        main = dao.getWeather().getMain();
+                        weather = dao.getWeather();
+                        wind = dao.getWeather().getWind();
+                        sys = dao.getWeather().getSys();
+                        weather__1 = (ArrayList<Weather__1>) dao.getWeather().getWeather();
+                        setResInUi();
                         binding.progress.setVisibility(View.GONE);
                         break;
                     }
@@ -122,6 +111,31 @@ public class DemoFragment extends BaseFragment<FragmentDemoBinding> {
                     }
                 }
             }
+
+
         });
+    }
+    private void setResInUi() {
+        binding.weatherNow.setText(weather__1.get(0).getMain());
+        Glide.with(requireContext())
+                .load("https://openweathermap.org/img/wn/" + weather__1.get(0).getIcon() + ".png")
+                .override(100,100)
+                .into(binding.iconWeath);
+
+        binding.windTv.setText((int) Math.round(wind.getSpeed()) + " m/ s");
+        binding.cityTv.setText(weather.getName());
+        binding.tempnowTv.setText(String.valueOf((int) Math.round(main.getTemp())));
+        binding.tempminTv.setText(String.valueOf((int) Math.round(main.getTempMin())));
+        binding.tempmaxTv.setText(String.valueOf((int) Math.round(main.getTempMax())));
+        binding.hummTv.setText(main.getHumidity() + "%");
+        binding.pressTv.setText(main.getPressure() + "mBar");
+        binding.progress.setVisibility(View.GONE);
+
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+
+
+        binding.sunriseTv.setText(df.format(sys.getSunrise()));
+        binding.sunsetTv.setText(df.format(sys.getSunset()));
+
     }
 }

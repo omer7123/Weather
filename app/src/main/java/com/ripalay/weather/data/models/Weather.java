@@ -1,44 +1,64 @@
 
 package com.ripalay.weather.data.models;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
+import java.io.Serializable;
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.ripalay.weather.data.local.Converter;
+import com.ripalay.weather.data.local.converters.CloudCon;
+import com.ripalay.weather.data.local.converters.MainCon;
+import com.ripalay.weather.data.local.converters.SysCon;
+import com.ripalay.weather.data.local.converters.Weathe_1Con;
+import com.ripalay.weather.data.local.converters.WindCon;
 
+@Entity
 public class Weather {
 
-    @SerializedName("coord")
-    @Expose
-    private Coord coord;
+//    @SerializedName("coord")
+//    @Expose
+//    private Coord coord;
     @SerializedName("weather")
     @Expose
+    @TypeConverters({Weathe_1Con.class})
     private List<Weather__1> weather = null;
     @SerializedName("base")
     @Expose
     private String base;
     @SerializedName("main")
     @Expose
+    @TypeConverters({MainCon.class})
     private Main main;
     @SerializedName("visibility")
     @Expose
     private Integer visibility;
     @SerializedName("wind")
     @Expose
+    @TypeConverters({WindCon.class})
     private Wind wind;
     @SerializedName("clouds")
     @Expose
+    @TypeConverters({CloudCon.class})
     private Clouds clouds;
     @SerializedName("dt")
     @Expose
     private Integer dt;
     @SerializedName("sys")
     @Expose
+    @TypeConverters({SysCon.class})
     private Sys sys;
     @SerializedName("timezone")
     @Expose
     private Integer timezone;
     @SerializedName("id")
     @Expose
+    @PrimaryKey
     private Integer id;
     @SerializedName("name")
     @Expose
@@ -47,13 +67,13 @@ public class Weather {
     @Expose
     private Integer cod;
 
-    public Coord getCoord() {
-        return coord;
-    }
-
-    public void setCoord(Coord coord) {
-        this.coord = coord;
-    }
+//    public Coord getCoord() {
+//        return coord;
+//    }
+//
+//    public void setCoord(Coord coord) {
+//        this.coord = coord;
+//    }
 
     public List<Weather__1> getWeather() {
         return weather;
