@@ -17,13 +17,19 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public class DemoViewModel extends ViewModel {
-    private String city;
+    private Double lat;
+    private Double lon;
+
 
     private MainRepository repository;
     public LiveData<Resource<Weather>> tempLiveData;
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public void setLon(Double lon) {
+        this.lon = lon;
     }
 
     @Inject
@@ -33,7 +39,8 @@ public class DemoViewModel extends ViewModel {
 
 
     public void fetchTemp() {
-        repository.setCity(city);
+        repository.setLat(lat);
+        repository.setLon(lon);
         tempLiveData = repository.getTemp();
     }
 

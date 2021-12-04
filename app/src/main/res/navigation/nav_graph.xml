@@ -10,15 +10,24 @@
         android:name="com.ripalay.weather.ui.demo_fragment.DemoFragment"
         android:label="fragment_demo"
         tools:layout="@layout/fragment_demo">
+
         <argument
-            android:defaultValue="Bishkek"
-            android:name="cityName"
+            android:name="lat"
+            android:defaultValue="42"
             app:argType="string"
             app:nullable="true" />
+
+        <argument
+            android:name="lon"
+            android:defaultValue="100"
+            app:argType="string"
+            app:nullable="true" />
+
 
         <action
             android:id="@+id/action_demoFragment_to_selectSityFragment"
             app:destination="@id/selectSityFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/selectSityFragment"
@@ -29,7 +38,12 @@
             android:id="@+id/action_selectSityFragment_to_demoFragment"
             app:destination="@id/demoFragment">
             <argument
-                android:name="cityName"
+                android:name="lat"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="lon"
                 app:argType="string"
                 app:nullable="true" />
 
