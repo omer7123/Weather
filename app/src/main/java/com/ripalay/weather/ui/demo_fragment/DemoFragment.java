@@ -56,7 +56,7 @@ public class DemoFragment extends BaseFragment<FragmentDemoBinding> implements L
     Double lat;
     Double lon;
     private ArrayList<Weather__1> weather__1 = new ArrayList<>();
-private boolean succefull = false;
+    private boolean succefull = false;
     private final String[] perms = new String[]{
             Manifest.permission.ACCESS_FINE_LOCATION,
             // Manifest.permission.ACCESS_COARSE_LOCATION
@@ -78,7 +78,7 @@ private boolean succefull = false;
             args = DemoFragmentArgs.fromBundle(getArguments());
             lat = Double.parseDouble(args.getLat());
             lon = Double.parseDouble(args.getLon());
-            Log.e("TAG", "onCreate:" + lat );
+            Log.e("TAG", "onCreate:" + lat);
         }
 
 
@@ -138,8 +138,8 @@ private boolean succefull = false;
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        Log.e("TAG", "onLocationChanged: " + lat + " bool"+succefull  );
-        if(!succefull && lat==42.0 && lon ==100.0) {
+        Log.e("TAG", "onLocationChanged: " + lat + " bool" + succefull);
+        if (!succefull && lat == 42.0 && lon == 100.0) {
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             Log.e("ololo", latLng.toString());
             lat = location.getLatitude();

@@ -59,7 +59,6 @@
                 android:id="@+id/homeinfoTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="25dp"
                 android:layout_marginTop="30dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
@@ -100,7 +99,7 @@
                     android:layout_marginBottom="10dp"
                     android:fontFamily="@font/barlow_thin"
                     android:gravity="center_horizontal"
-                    android:text="4"
+                    android:text="-4"
                     android:textColor="@color/black"
                     android:textSize="64sp"
                     android:textStyle="bold" />
@@ -138,7 +137,7 @@
                         android:layout_gravity="bottom"
                         android:layout_marginTop="15dp"
                         android:fontFamily="sans-serif"
-                        android:text="27"
+                        android:text="-4"
                         android:textColor="@color/gray"
                         android:textSize="16sp"
                         android:textStyle="bold" />
